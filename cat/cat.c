@@ -13,8 +13,6 @@
 
 #define BUF_SIZE 4096
 
-bool read_from_stdin();
-
 bool open_file(int *fds, char *filename);
 
 void read_file(int fd);
@@ -27,16 +25,20 @@ int main(int argc, char *argv[]) {
 
   if (argc < 2) {
 
-    bool ret = read_from_stdin();
-    exit(ret);
+    read_file(STDIN_FILENO);
   } else {
 
     for (int i = 0; i < argc - 1; i++) {
-      if (open_file(&fds[i], argv[i + 1]))
-        num_fds++;
-      else {
-        fprintf(stderr, "cat: %s. No such file or directory.\n", argv[i + 1]);
-        exit(EXIT_FAILURE);
+
+      if (strcmp(argv[i + 1], "-") == 0) {
+        read_file(STDIN_FILENO);
+      } else {
+        if (open_file(&fds[i], argv[i + 1]))
+          num_fds++;
+        else {
+          fprintf(stderr, "cat: %s. No such file or directory.\n", argv[i + 1]);
+          exit(EXIT_FAILURE);
+        }
       }
     }
 
@@ -55,11 +57,6 @@ bool open_file(int *fds, char *filename) {
   return true;
 }
 
-bool read_from_stdin() {
-  printf("Todo\n");
-  return true;
-}
-
 void read_file(int fd) {
   char buf[BUF_SIZE];
   ssize_t bytes_read;
@@ -68,8 +65,7 @@ void read_file(int fd) {
   while ((bytes_read = read(fd, buf, sizeof(buf) - 1)) > 0) {
     total_read += bytes_read;
 
-    buf[bytes_read] = '\0';
-    fprintf(stdout, "%s", buf);
+    write(STDOUT_FILENO, buf, bytes_read);
   }
 
   if (bytes_read == -1) {
