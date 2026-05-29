@@ -1,0 +1,15 @@
+The quick brown fox jumps over the lazy dog.
+This is a standard line of text to test basic file reading capabilities.
+If your buffer size is working correctly, this entire paragraph should
+read in without any segmentation faults or weird cutoffs.
+
+System programming in C requires careful memory management!
+
+1. First item
+2. Second item
+
+3. Third item (testing blank lines above)
+4. Fourth item
+
+100. Jumping ahead to test numbers.
+EOF.
