@@ -9,5 +9,9 @@ Just a collection of assignments for [Stanford's CS107](https://web.stanford.edu
 Most of the assignments are building simplified clones of various POSIX utilities or standard
 library functions.
 
+Also some of the exercises from [The Linux Programming Interface](https://www.amazon.com/Linux-Programming-Interface-System-Handbook/dp/1593272200).
+
 - [x] **printenv**: in `printenv/`
-- [ ] **strtok**: *in progress*
+- [x] **strtok**: in `strtok/`
+- [x] **head**: in `head_tail/`
+- [ ] **tail**: todo
